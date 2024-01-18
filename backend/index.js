@@ -8,6 +8,8 @@ const app = express();
 app.use(express.json());
 app.use(cors({ origin: true }));
 
+const apiKey = process.env.VITE_CHAT_ENGINE_API_KEY;
+
 app.post("/authenticate", async (req, res) => {
   const { username } = req.body;
 
@@ -19,7 +21,7 @@ app.post("/authenticate", async (req, res) => {
         secret: username,
         first_name: username,
       },
-      { headers: { "private-key": "305cf472-13a1-47a1-949a-862d885e2c9e" } }
+      { headers: { "private-key": apiKey } }
     );
     return res.status(r.status).json(r.data);
   } catch (e) {
